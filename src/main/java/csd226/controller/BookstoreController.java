@@ -13,7 +13,7 @@ public class BookstoreController {
 
     @GetMapping("/publiccontent")
     public ResponseEntity<String> getPublicContent() {
-        return ResponseEntity.ok("getPublicContent() :");
+        return ResponseEntity.ok("getPublicContent() : Home");
     }
 
     @GetMapping("/publiccontent2")
@@ -21,6 +21,10 @@ public class BookstoreController {
         return new Content("some content");
     }
 
+    @GetMapping("/about")
+    public ResponseEntity<String> getAbout(){ // map a URL to a method
+        return ResponseEntity.ok("getAbout() : About");
+    }
 
 
 
