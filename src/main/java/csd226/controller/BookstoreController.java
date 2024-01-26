@@ -1,6 +1,7 @@
 package csd226.controller;
 
-import ca.saultcollege.server.data.Content;
+
+import csd226.data.Content;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

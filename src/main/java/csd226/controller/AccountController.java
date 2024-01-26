@@ -1,6 +1,6 @@
 package csd226.controller;
 
-import ca.saultcollege.server.data.Account;
+import csd226.data.Account;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
