@@ -1,4 +1,4 @@
-package com.example.FredCarellaCsd226HtmxTutorial;
+package csd226;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;

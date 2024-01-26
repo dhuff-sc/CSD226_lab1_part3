@@ -1,4 +1,4 @@
-package com.example.FredCarellaCsd226HtmxTutorial;
+package csd226;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

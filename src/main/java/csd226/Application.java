@@ -1,4 +1,4 @@
-package com.example.FredCarellaCsd226HtmxTutorial;
+package csd226;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.example.FredCarellaCsd226HtmxTutorial;
+package csd226;
 
 import org.reactivestreams.Publisher;
 import org.springframework.core.Ordered;

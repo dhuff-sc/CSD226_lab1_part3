@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.FredCarellaCsd226HtmxTutorial;
+package csd226;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
