@@ -1,7 +1,6 @@
 package csd226.controller;
 
 
-import csd226.data.Content;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +15,23 @@ public class BookstoreController {
         return ResponseEntity.ok("getPublicContent() : Home");
     }
 
-    @GetMapping("/publiccontent2")
-    public Content getPublicContent2() {
-        return new Content("some content");
+    @GetMapping("/admin")
+    public ResponseEntity<String> getAdmin() { return ResponseEntity.ok("getAdmin() : Admin");
     }
 
-    @GetMapping("/about")
-    public ResponseEntity<String> getAbout(){ // map a URL to a method
-        return ResponseEntity.ok("getAbout() : About");
+    @GetMapping("/student")
+    public ResponseEntity<String> getStudent(){ // map a URL to a method
+        return ResponseEntity.ok("getStudent() : Student");
+    }
+
+    @GetMapping("/publicedit")
+    public ResponseEntity<String> getPublicEdit(){ // map a URL to a method
+        return ResponseEntity.ok("getPublicEdit() : PublicEdit");
+    }
+
+    @GetMapping("/staffedit")
+    public ResponseEntity<String> getStaffEdit(){ // map a URL to a method
+        return ResponseEntity.ok("getStaffEdit() : StaffEdit");
     }
 
 

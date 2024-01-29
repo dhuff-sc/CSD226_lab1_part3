@@ -1,96 +1,36 @@
 package csd226;
 
+import csd226.data.Account;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class SigninController {
     @PostMapping("/signin")
-    public String signin(@ModelAttribute SigninController.Account values) {
+    public String signin(@ModelAttribute Account values) {
         // here we just return email and password but you would want to start the authentication process here.
         // we'll do this later
-        return "Hello " + values.getEmail() + ":"+values.getPassword()+" you are signed in";
+        return "Hello " + values.getFirstname() + ":" + " you are signed in!";
     }
 
     // signinForm is just here for documentation, its not used in the app
     @GetMapping(path = "/signinForm")
     public String signinForm() {
-//        return "<div id=\"hello\" hx-swap-oob=\"true\">Hello</div>\n"
-//                + "<div id=\"world\" hx-swap-oob=\"true\">World</div>";
 
         return "<form hx-post=\"/signin\" hx-target=\"this\" hx-swap=\"outerHTML\">\n" +
-                "  <div>\n" +
-                "    <label>First Name</label>\n" +
-                "    <input type=\"text\" name=\"firstname\" value=\"Joe\">\n" +
-                "  </div>\n" +
-                "  <div class=\"form-group\">\n" +
-                "    <label>Last Name</label>\n" +
-                "    <input type=\"text\" name=\"lastname\" value=\"Blow\">\n" +
-                "  </div>\n" +
                 "  <div class=\"form-group\">\n" +
                 "    <label>Email Address</label>\n" +
                 "    <input type=\"email\" name=\"email\" value=\"joe@blow.com\">\n" +
                 "  </div>\n" +
                 "  <div class=\"form-group\">\n" +
                 "    <label>Password</label>\n" +
-                "    <input type=\"email\" name=\"password\" value=\"joe@blow.com\">\n" +
+                "    <input type=\"email\" name=\"password\" value=\"xxxxxxx\">\n" +
                 "  </div>\n" +
                 "  <button class=\"btn\">Submit</button>\n" +
-                "  <button class=\"btn\" hx-get=\"/signin\">Cancel</button>\n" +
                 "</form>";
-
-    }
-
-    static class Account {
-        private String firstname;
-        private String lastname;
-
-        public String getFirstname() {
-            return firstname;
-        }
-
-        public void setFirstname(String firstname) {
-            this.firstname = firstname;
-        }
-
-        public String getLastname() {
-            return lastname;
-        }
-
-        public void setLastname(String lastname) {
-            this.lastname = lastname;
-        }
-
-        private String email;
-        private String password;
-
-        public String getEmail() {
-            return email;
-        }
-
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
-
-        public String getConfirmPassword() {
-            return confirmPassword;
-        }
-
-        public void setConfirmPassword(String confirmPassword) {
-            this.confirmPassword = confirmPassword;
-        }
-
-        private String confirmPassword;
 
     }
 }
