@@ -27,7 +27,7 @@ public class SigninController {
                 "  </div>\n" +
                 "  <div class=\"form-group\">\n" +
                 "    <label>Password</label>\n" +
-                "    <input type=\"email\" name=\"password\" value=\"xxxxxxx\">\n" +
+                "    <input type=\"password\" name=\"password\" value=\"xxxxxxx\">\n" +
                 "  </div>\n" +
                 "  <button class=\"btn\">Submit</button>\n" +
                 "</form>";

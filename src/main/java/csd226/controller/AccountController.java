@@ -31,15 +31,18 @@ public class AccountController {
                     "        <input type=\"email\" name=\"email\" value=\"joe@blow.com\">\n" +
                     "    </div>\n" +
                     "    <div class=\"form-group\">\n" +
+                    // add helper text advise the user their password must be at least 8 characters and
+                    // include one uppercase letter, one lowercase letter, a number and a special character
                     "        <label>Password</label>\n" +
                     "        <input type=\"password\" name=\"password\" value=\"xxxxx\">\n" +
                     "    </div>\n" +
+                    "        <small id=\"passHelp\" class=\"form-text text-muted\">Min. 8 characters, 1 uppercase, 1 lowercase, a number and special character.</small>\n" +
                     "    <div class=\"form-group\">\n" +
                     "        <label>Confirm Password</label>\n" +
                     "        <input type=\"password\" name=\"confirmPassword\" value=\"xxxxx\">\n" +
                     "    </div>\n" +
                     "    <button class=\"btn\">Submit</button>\n" +
-                    "    <button class=\"btn\" hx-get=\"/signin\">Cancel</button>\n" +
+                    "    <button class=\"btn\" hx-get=\"/signup\">Cancel</button>\n" +
                     "</form>";
         }
     }
