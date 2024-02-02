@@ -16,7 +16,7 @@ public class SigninController {
         return "Hello " + values.getFirstname() + ":" + " you are signed in!";
     }
 
-    // signinForm is just here for documentation, its not used in the app
+
     @GetMapping(path = "/signinForm")
     public String signinForm() {
 
