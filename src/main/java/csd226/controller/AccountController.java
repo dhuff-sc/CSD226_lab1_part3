@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AccountController {
 
-    @GetMapping("/signup")
+    @PostMapping("/signup")
     public String signup(@ModelAttribute Account values) {
         // here we just return email and password but you would want to start the authentication process here.
         // we'll do this later
         return "Hello " + values.getFirstname() + ":" + " you have successfully signed up!";
     }
 
-    @PostMapping(path = "/signupForm")
+    @GetMapping(path = "/signupForm")
         public String createAccount() {
             return "<form hx-post=\"/signup\" hx-target=\"this\" hx-swap=\"outerHTML\">\n" +
                     "    <div>\n" +
