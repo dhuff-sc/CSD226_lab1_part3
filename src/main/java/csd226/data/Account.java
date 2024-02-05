@@ -1,6 +1,39 @@
 package csd226.data;
 
-public class Account {
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+
+public class Account implements UserDetails {
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+    public String getPassword() {
+        return password;
+    }
+    @Override
+    public String getUsername() {
+        return null;
+    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 
     private String firstname;
     private String lastname;
@@ -32,10 +65,6 @@ public class Account {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -49,5 +78,15 @@ public class Account {
     }
 
     private String confirmPassword;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    private Integer id;
 
 }
