@@ -125,11 +125,7 @@ public class NpmVersionResolver {
 	private String path(String webjar, String version, String path) {
 		if (path.equals("/")) {
 			String module = module(webjar, version, path);
-			if (module != null) {
-				return module;
-			} else {
-				return null;
-			}
+            return module;
 		}
 		if (path.equals("/main.js")) {
 			String module = module(webjar, version, path);
@@ -151,14 +147,14 @@ public class NpmVersionResolver {
 				Map<String, Object> map = parser
 						.parseMap(StreamUtils.copyToString(resource.getInputStream(), StandardCharsets.UTF_8));
 				if (!path.equals("/main.js") && map.containsKey("module")) {
-					return "/" + (String) map.get("module");
+					return "/" + map.get("module");
 				}
 				if (!map.containsKey("main") && map.containsKey("jspm")) {
 					String stem = resolve(map, "jspm.directories.lib", "dist");
 					String main = resolve(map, "jspm.main", "index.js");
 					return "/" + stem + "/" + main + (main.endsWith(".js") ? "" : ".js");
 				}
-				return "/" + (String) map.get("main");
+				return "/" + map.get("main");
 			} catch (IOException e) {
 			}
 		}

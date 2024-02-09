@@ -37,9 +37,7 @@ public class CompositeViewRenderer implements HandlerResultHandler {
 	@Override
 	public boolean supports(HandlerResult result) {
 		if (Publisher.class.isAssignableFrom(result.getReturnType().toClass())) {
-			if (Rendering.class.isAssignableFrom(result.getReturnType().getGeneric(0).toClass())) {
-				return true;
-			}
+            return Rendering.class.isAssignableFrom(result.getReturnType().getGeneric(0).toClass());
 		}
 		return false;
 	}
