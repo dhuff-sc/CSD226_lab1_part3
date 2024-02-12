@@ -1,4 +1,4 @@
-package csd226;
+package csd226.controller;
 
 import csd226.data.Account;
 import org.springframework.web.bind.annotation.GetMapping;

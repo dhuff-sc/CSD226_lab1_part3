@@ -1,12 +1,54 @@
 package csd226.controller;
 
 import csd226.data.Account;
+import csd226.security.JwtTokenUtil;
+import org.apache.coyote.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+
+import csd226.data.AuthRequest;
+import csd226.data.AuthResponse;
+import jakarta.validation.Valid;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.http.HttpStatus;
 
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AccountController {
+
+    @Autowired
+    AuthenticationManager authManager;
+
+    @Autowired
+    JwtTokenUtil jwtUtil;
+
+    @PostMapping("/auth/login")
+    public ResponseEntity<?> login(@RequestBody @Valid AuthRequest request) {
+        try {
+            Authentication authentication = authManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(), request.getPassword())
+            );
+
+            Account account = new Account();
+            account.setId(1);
+            account.setEmail(authentication.getPrincipal().toString());
+
+            String accessToken = jwtUtil.generateAccessToken(account);
+
+            AuthResponse response = new AuthResponse(account.getEmail(), accessToken);
+
+            return ResponseEntity.ok().body(response);
+        } catch( Exception ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+    }
+
 
     @PostMapping("/signup")
     public String signup(@ModelAttribute Account values) {
@@ -45,6 +87,8 @@ public class AccountController {
                     "    <button class=\"btn\" hx-get=\"/signup\">Cancel</button>\n" +
                     "</form>";
         }
+
+
     }
 //    @GetMapping("/signup")
 //    public ResponseEntity<String> createAccount(@RequestBody Account signUpFormData) {

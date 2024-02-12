@@ -8,6 +8,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -37,7 +38,7 @@ public class ApplicationSecurity {
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
 
-        // http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         //        http
 //                .authorizeHttpRequests((requests) -> requests
@@ -51,7 +52,7 @@ public class ApplicationSecurity {
 //                .logout((logout) -> logout.permitAll());
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/login", "/publiccontent").permitAll()
+                        .requestMatchers("/auth/login","/","/index.html", "/publiccontent").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form

@@ -1,4 +1,4 @@
-package csd226;
+package csd226.controller;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.MediaType;
