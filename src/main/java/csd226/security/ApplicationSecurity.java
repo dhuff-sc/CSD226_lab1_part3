@@ -1,9 +1,11 @@
 package csd226.security;
 
+import csd226.repositories.AccountRepository;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -12,6 +14,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
@@ -28,12 +31,17 @@ public class ApplicationSecurity {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    @Autowired
+    private AccountRepository accountRepository;
+
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authConfig) throws Exception {
-        return new ProviderManager(List.of(new CustomAuthenticationProvider()));
-        //return authConfig.getAuthenticationManager();
+//        return new ProviderManager(List.of(new CustomAuthenticationProvider()));
+        return authConfig.getAuthenticationManager();
     }
+
     @Bean
     public SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
@@ -52,9 +60,13 @@ public class ApplicationSecurity {
 //                .logout((logout) -> logout.permitAll());
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/login","/","/index.html", "/publiccontent").permitAll()
+                        .requestMatchers("/","/index.html","/auth/login", "/signin", "/login",  "/signup").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/publiccontent").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/publiccontent").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/publiccontent").authenticated()
                         .anyRequest().authenticated()
                 )
+
                 .formLogin((form) -> form
                         .loginPage("/signin")
                         .permitAll()
@@ -77,15 +89,28 @@ public class ApplicationSecurity {
     }
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("user")
-                        .password("password")
-                        .roles("USER")
-                        .build();
+        return new UserDetailsService() {
 
-        return new InMemoryUserDetailsManager(user);
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+                return accountRepository.findByEmail(username)
+                        .orElseThrow(
+                                () -> new UsernameNotFoundException("User " + username + " not found"));
+            }
+        };
     }
+
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username("user")
+//                        .password("password")
+//                        .roles("USER")
+//                        .build();
+//
+//        return new InMemoryUserDetailsManager(user);
+//    }
 
 }
 
