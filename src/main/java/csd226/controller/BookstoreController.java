@@ -1,10 +1,14 @@
 package csd226.controller;
 
 
+import csd226.data.Registry;
+import csd226.repositories.RegistryRepository;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -12,13 +16,14 @@ public class BookstoreController {
 
     @GetMapping("/publiccontent")
     public ResponseEntity<String> getPublicContent() {
-        return ResponseEntity.ok("getPublicContent() : Home");
+        return ResponseEntity.ok(getRegistry("public_content"));
     }
 
     @GetMapping("/staffcontent")
     public ResponseEntity<String> getStaffContent() {
-        return ResponseEntity.ok("getStaffContent() : Staff");
+        return ResponseEntity.ok(getRegistry("staff_content"));
     }
+
 
     @GetMapping("/admin")
     public ResponseEntity<String> getAdmin() {
@@ -64,6 +69,55 @@ public class BookstoreController {
                 "    <button class=\"btn\">Cancel</button>\n" +
                 "</form>");
     }
+
+    @PutMapping("/publiccontent")
+    public ResponseEntity<Boolean> savePublicContent(@RequestBody @Valid Registry content) {
+        Boolean result = updateRegistry(content.getRegistryKey(), content.getRegistryValue());
+        return ResponseEntity.ok(result);
+    }
+
+    @PutMapping("/staffcontent")
+    public ResponseEntity<Boolean> saveStaffContent(@RequestBody @Valid Registry content) {
+        Boolean result = updateRegistry(content.getRegistryKey(), content.getRegistryValue());
+        return ResponseEntity.ok(result);
+    }
+
+    @Autowired
+    RegistryRepository registryRepository;
+
+    private Boolean updateRegistry(String registryKey, String registryValue) {
+        //Find the record for the registry entry based on the supplied key
+        List<Registry> registryEntries = registryRepository.findByRegistryKey(registryKey);
+
+        Registry registryEntry = new Registry();
+
+        if (registryEntries.size() == 0) {
+            registryEntry.setRegistryKey(registryKey);
+        } else {
+            registryEntry = registryEntries.get(0);
+        }
+
+        registryEntry.setRegistryValue(registryValue);
+
+        //Update the registry table with new value
+        registryRepository.save(registryEntry);
+
+        return true;
+    }
+
+    private String getRegistry(String registryKey) {
+        //Find the record for the registry entry based on the supplied key
+        List<Registry> registryEntries = registryRepository.findByRegistryKey(registryKey);
+
+        Registry registryEntry = new Registry();
+
+        if (registryEntries.size() == 0) {
+            return "";
+        }
+
+        return registryEntries.get(0).getRegistryValue();
+    }
+
 
 
 
