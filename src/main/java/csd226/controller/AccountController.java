@@ -83,7 +83,7 @@ public class AccountController {
                         "        <input type=\"password\" name=\"password\" value=\"password\">" +
                         "    </div>" +
                         "    <button class=\"btn\">Submit</button>" +
-                        "    <button class=\"btn\" hx-get=\"/auth/login\">Cancel</button>" +
+                        "    <button class=\"btn\" hx-get=\"/signup\">Cancel</button>" +
                         "</form>";
         return ResponseEntity.ok(s);
     }
@@ -112,7 +112,7 @@ public class AccountController {
                 "        <input type=\"password\" name=\"confirmPassword\" value=\"xxxxxxxxxx\">\n" +
                 "    </div>\n" +
                 "    <button class=\"btn\">Submit</button>\n" +
-                "    <button class=\"btn\" hx-get=\"/signup\">Cancel</button>\n" +
+                "    <button class=\"btn\" hx-get=\"/signin\">Cancel</button>\n" +
                 "</form>";
     }
 }

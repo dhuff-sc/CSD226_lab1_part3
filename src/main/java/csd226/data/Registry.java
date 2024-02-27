@@ -50,27 +50,4 @@ public class Registry {
         this.registryValue = registryValue;
     }
 
-    public String toString() {
-        return "Registry{" +
-                "id=" + id +
-                ", registryKey='" + registryKey + '\'' +
-                ", registryValue='" + registryValue + '\'' +
-                '}';
-    }
-
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null || getClass() != obj.getClass()) {
-            return false;
-        }
-        Registry registry = (Registry) obj;
-        return id.equals(registry.id) && registryKey.equals(registry.registryKey) && registryValue.equals(registry.registryValue);
-    }
-
-    public int hashCode() {
-        return Objects.hash(id, registryKey, registryValue);
-    }
-
 }
